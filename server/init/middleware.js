@@ -35,8 +35,8 @@
     app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
     app.set("PORT", 3001 || process.env.PORT);
     app.set('host', process.env.NODE_IP || 'localhost');
-    app.use('/app', express.static("public/app/tavisca/www"));
-    app.use('/', express.static("public/app/tavisca/www"));
+    app.use('/app', express.static("public/app/www"));
+    app.use('/', express.static("public/app/www"));
 
     // security Path
     app.use(helmet());

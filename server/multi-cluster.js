@@ -1,7 +1,7 @@
 (function() {
 
 
-
+    // Multi threaded NodejS app
     if (cluster.isMaster) {
         var numWorkers = require('os').cpus().length;
 
@@ -21,19 +21,10 @@
             cluster.fork();
         });
     } else {
-
-        //local
-        http.listen(process.env.PORT||app.get("PORT"), function(req, resp) {
+        http.listen(process.env.PORT || app.get("PORT"), function(req, resp) {
             log("Tavisca  Server Core  Started :" + app.get("PORT") || process.env.PORT);
             log(process.env.PORT);
         });
-
-        //prod
-        // http.listen(process.env.PORT, function(req, resp) {
-        //     log("Prodeas Server Core  Started :" + process.env.PORT);
-        //     log(process.env.PORT);
-        // });
-
     }
 
 

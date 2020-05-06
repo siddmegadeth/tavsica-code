@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<script src="plugins/winDevice.js" type="text/javascript"></script>
+<!--  Add Support For Material Design Lite to Compliment ONSEN -->
+<script src="plugins/material-design-lite/material.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="plugins/material-design-lite/material.min.css">
+<head>
+    <!-- Add File Upload -->
+    <script src="plugins/OnsenUI-dist-2.10.10/js/onsenui.min.js" type="text/javascript"></script>
+    <script src="plugins/moment.min.js" type="text/javascript"></script>
+    <!-- Use ONSENUI -->
+    <link rel="stylesheet" type="text/css" href="plugins/OnsenUI-dist-2.10.10/css/onsenui.min.css">
+    <link rel="stylesheet" type="text/css" href="plugins/OnsenUI-dist-2.10.10/css/onsen-css-components.min.css">
+    <!-- Add Mapbox Gl/Decoder/geocoder support with Map rendering -->
+    <!-- Ends Mapbox -->
+    <!-- Add Support For Internation Number Validation -->
+    <!-- Mapbox Ends -->
+    <!-- Components CSS -->
+    <link rel="stylesheet" href="components/verify/verify.css">
+    <link rel="stylesheet" href="components/landing/landing.css">
+    <link rel="stylesheet" href="components/login/login.css">
+    <link rel="stylesheet" href="components/todo-manager/todo-manager.css">
+    <!-- Custom Theming -->
+    <link rel="stylesheet" href="components/global/global.css">
+    <link rel="stylesheet" href="components/global/common.css">
+    <link rel="stylesheet" href="components/global/onsen-android.css">
+    <link rel="stylesheet" href="components/global/onsen-ios.css">
+    <link rel="stylesheet" href="components/global/media-queries.css">
+    <!-- CSS Ends -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>Tavisca</title>
+</head>
+<script type="text/javascript">
+ons.preload([
+    'landing.html',
+    'login.html',
+    'verify.html'
+]).then(function() {
+    log("All Cache Files loaded");
+});
+</script>
+
+<body ng-app="myApp">
+    <ons-navigator var="myNavigator" page="verify.html"></ons-navigator>
+    <!-- Verify -->
+    <template id="verify.html">
+        <ons-page ng-controller="verifyCtrl">
+            <ons-toolbar ng-show="showRequestButton">
+                <div class="center">
+                    Verify
+                </div>
+            </ons-toolbar>
+            <ons-progress-bar indeterminate ng-if="verifyLoader"></ons-progress-bar>
+            <!-- Below Message Is Only SHown When User has Not Granted geolocation Access -->
+            <ons-pull-hook ng-action="pageRefresh($done)" var="loader" ng-show="showRequestButton">
+                <span ng-switch="loader.state">
+                    <span ng-switch-when="initial">
+                        <ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh
+                    </span>
+                    <span ng-switch-when="preaction">
+                        <ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh
+                    </span>
+                    <span ng-switch-when="action">
+                        <ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...
+                    </span>
+                </span>
+            </ons-pull-hook>
+        </ons-page>
+    </template>
+    <!-- Login -->
+    <template id="login.html">
+        <ons-page ng-controller="loginCtrl">
+            <ons-progress-bar indeterminate ng-if="isLoginLoading"></ons-progress-bar>
+            <ons-toolbar>
+                <div class="center">
+                    <strong>Login</strong>
+                </div>
+            </ons-toolbar>
+            <ons-card>
+                <ons-list-item>
+                    <ons-input type="text" ng-model="username" placeholder="Username"></ons-input>
+                </ons-list-item>
+                <ons-list-item>
+                    <ons-button class="button-margin" modifier="large" ng-click="login(username)" ripple>Login</ons-button>
+                </ons-list-item>
+            </ons-card>
+        </ons-page>
+    </template>
+    <!-- Landing -->
+    <template id="landing.html">
+        <ons-page ng-controller="landingCtrl">
+            <ons-toolbar>
+                <div class="center">
+                    <strong>Tavisca Code</strong>
+                </div>
+                <div class="right">
+                    <ons-toolbar-button ng-click="logout()">
+                        <ons-icon icon="fa-power-off"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+            <ons-progress-bar indeterminate ng-if="isLandingLoading"></ons-progress-bar>
+            <!-- Core App Tabber And Navigation -->
+            <!-- swipeable -->
+            <ons-tabbar position="bottom" ignore-edge-width="20" swipeable>
+                <ons-tab page="create.html" icon="fa-play" label="To Do" active>
+                </ons-tab>
+                <ons-tab page="inprogress.html" label="In Progress" icon="fa-hourglass-start">
+                </ons-tab>
+                <ons-tab page="complete.html" label="Completed" icon="fa-check">
+                </ons-tab>
+            </ons-tabbar>
+        </ons-page>
+    </template>
+    <!-- create.html -->
+    <template id="create.html">
+        <ons-page ng-controller="todoManagerCtrl">
+            <ons-progress-bar indeterminate ng-if="isCreateLoading"></ons-progress-bar>
+            <ons-fab position="bottom right" ng-click="openTodo()" ripple>
+                <ons-icon icon="fa-plus"></ons-icon>
+            </ons-fab>
+        </ons-page>
+    </template>
+    <template id="inprogress.html">
+        <ons-page ng-controller="todoManagerCtrl">
+            <ons-progress-bar indeterminate ng-if="isProgressLoading"></ons-progress-bar>
+        </ons-page>
+    </template>
+    <template id="complete.html">
+        <ons-page ng-controller="todoManagerCtrl">
+            <ons-progress-bar indeterminate ng-if="isCompleteLoading"></ons-progress-bar>
+        </ons-page>
+    </template>
+    <!-- Create Todo -->
+    <template id="create-todo.html">
+        <ons-page ng-controller="todoManagerCtrl">
+            <ons-toolbar>
+                <div class="left">
+                    <ons-back-button></ons-back-button>
+                </div>
+                <div class="center">
+                    <strong>Create Todo</strong>
+                </div>
+            </ons-toolbar>
+            <ons-progress-bar indeterminate ng-if="isCreateToDoLoading"></ons-progress-bar>
+        </ons-page>
+    </template>
+</body>
+<!-- Core Framework API -->
+<script src="cordova.js" type="text/javascript"></script>
+<script src="plugins/angular-1.7.9/angular.min.js" type="text/javascript"></script>
+<script src="plugins/angular-validation/dist/angular-validation.min.js"></script>
+<script src="plugins/angular-translate/angular-translate.min.js"></script>
+<script src="plugins/angular-translate/angular-translate-loader.min.js"></script>
+<script src="plugins/OnsenUI-dist-2.10.10/js/angular-onsenui.min.js" type="text/javascript"></script>
+<script src="init.js" type="text/javascript"></script>
+<!-- Controllers -->
+<script src="components/verify/verifyCtrl.js" type="text/javascript"></script>
+<script src="components/landing/landingCtrl.js" type="text/javascript"></script>
+<script src="components/login/loginCtrl.js" type="text/javascript"></script>
+<script src="components/todo-manager/todoManagerCtrl.js" type="text/javascript"></script>
+<!-- Services -->
+<script src="services/state-manager.js" type="text/javascript"></script>
+<script src="services/interceptor-services.js" type="text/javascript"></script>
+
+</html>
