@@ -4,6 +4,7 @@
 <!--  Add Support For Material Design Lite to Compliment ONSEN -->
 <script src="plugins/material-design-lite/material.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="plugins/material-design-lite/material.min.css">
+
 <head>
     <!-- Add File Upload -->
     <script src="plugins/OnsenUI-dist-2.10.10/js/onsenui.min.js" type="text/javascript"></script>
@@ -77,15 +78,17 @@ ons.preload([
                     <strong>Login</strong>
                 </div>
             </ons-toolbar>
-            <ons-card>
-                <ons-list-item>
-                    <ons-input type="text" ng-model="username" placeholder="Username"></ons-input>
-                </ons-list-item>
-                <ons-list-item>
-                    <ons-button class="button-margin" modifier="large" ng-click="login(username)" ripple>Login</ons-button>
-                </ons-list-item>
-            </ons-card>
+            <div class="onsen-card-align">
+                <ons-card class="card-onsen-responsive">
+                    <ons-list-item ripple>
+                        <ons-input type="text" ng-model="username" placeholder="Username"></ons-input>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-button class="button-margin" modifier="large" ng-click="login(username)" ripple>Login</ons-button>
+                    </ons-list-item>
+                </ons-card>
         </ons-page>
+        </div>
     </template>
     <!-- Landing -->
     <template id="landing.html">
@@ -96,14 +99,16 @@ ons.preload([
                 </div>
                 <div class="right">
                     <ons-toolbar-button ng-click="logout()">
-                        <ons-icon icon="fa-power-off"></ons-icon>
+                        <div class="truncate">
+                            <ons-icon icon="fa-power-off"></ons-icon>
+                        </div>
                     </ons-toolbar-button>
                 </div>
             </ons-toolbar>
             <ons-progress-bar indeterminate ng-if="isLandingLoading"></ons-progress-bar>
             <!-- Core App Tabber And Navigation -->
             <!-- swipeable -->
-            <ons-tabbar position="bottom" ignore-edge-width="20" swipeable>
+            <ons-tabbar position="top" ignore-edge-width="20" swipeable>
                 <ons-tab page="create.html" icon="fa-play" label="To Do" active>
                 </ons-tab>
                 <ons-tab page="inprogress.html" label="In Progress" icon="fa-hourglass-start">
@@ -120,6 +125,27 @@ ons.preload([
             <ons-fab position="bottom right" ng-click="openTodo()" ripple>
                 <ons-icon icon="fa-plus"></ons-icon>
             </ons-fab>
+            <div class="card-container" ng-repeat="todo in global.create">
+                <div class="card-footer">
+                    <div class="mdl-card__supporting-text  mdl-card--border">
+                        <p class="card-p">
+                            <div class="card-header truncate">
+                                <h3>{{todo.header}}</h3>
+                            </div>
+                        </p>
+                        <p class="card-p">
+                            <div class="card-subtext">
+                                <legend>{{todo.description}} </legend>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="mdl-card__supporting-text  mdl-card--border">
+                        <p class="card-p">
+                            <ons-button ng-click="updateSkills()" modifier="larger outline">Action</ons-button>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </ons-page>
     </template>
     <template id="inprogress.html">
@@ -144,6 +170,19 @@ ons.preload([
                 </div>
             </ons-toolbar>
             <ons-progress-bar indeterminate ng-if="isCreateToDoLoading"></ons-progress-bar>
+            <ons-card>
+                <ons-list-item ripple>
+                    <legend>Todo Name</legend>
+                    <ons-input type="text" ng-model="todo.header"></ons-input>
+                </ons-list-item>
+                <ons-list-item ripple>
+                    <legend>Description</legend>
+                    <ons-input type="text" ng-model="todo.description"></ons-input>
+                </ons-list-item>
+                <ons-list-item>
+                    <ons-button modifier="outline" ng-click="createTodo(todo)">Create</ons-button>
+                </ons-list-item>
+            </ons-card>
         </ons-page>
     </template>
 </body>

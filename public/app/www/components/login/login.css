@@ -1,56 +1,8 @@
-/*Social Class*/
-.facebook {
-    background: #5263c3;
-}
-
-.google {
-    background: #e04f44;
-}
-/**/
-
-.login-dialog {
-    padding-top: 14%;
-    padding-bottom: 14%;
-    margin-left: 8%;
-    margin-right: 8%;
-    text-align: center;
-    border: 2px solid #988c8c;
-    background: white;
-    border-radius: 3%;
-}
-
-
-/* Dark Theme */
-input#phone {
-    width: 100%;
-    padding-bottom: 3% !important;
-    padding-top: 3% !important;
-    /*    border: 1px solid #eaeaea;
-*/
-}
-
-.otp-input {
-    width: 100%;
-    text-align: center;
-    display: inline-block;
-}
-
-.otp-fonts {
-    font-size: 28px;
-    font-weight: 700;
-}
-
-/*OTP Wrapper*/
-.otp-field {
-    width: 93%;
-    height: 42px;
-    margin-bottom: 6%;
-    text-align: center;
-    border: 1px solid #bdbdbd;
-}
-
-.add-otp-margin {
-    margin-bottom: 1%;
-    width: 93%;
-    text-align: center;
-}
+ .onsen-card-align {
+     width: 100%;
+     display: inline-block;
+     margin: 0 auto;
+     text-align: center;
+     position: relative;
+     height: 40%;
+ }

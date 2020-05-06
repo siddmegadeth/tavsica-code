@@ -47,8 +47,8 @@ window.initAnimation = function(type) {
 }
 
 // both platform values has to be same 
-initAnimation('android');
-ons.platform.select('android');
+initAnimation('ios');
+ons.platform.select('ios');
 
 app.config(['$httpProvider', '$translateProvider', function($httpProvider, $translateProvider) {
 

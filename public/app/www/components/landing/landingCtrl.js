@@ -1,4 +1,4 @@
-app.controller('landingCtrl', ['$scope', '$rootScope', '$timeout', function($scope, $rootScope, $timeout) {
+app.controller('landingCtrl', ['$scope', '$rootScope', '$timeout','stateManager', function($scope, $rootScope, $timeout,stateManager) {
 
 
     // Callback function Success
@@ -28,5 +28,9 @@ app.controller('landingCtrl', ['$scope', '$rootScope', '$timeout', function($sco
 
         })
     }
+
+    $timeout(function() {
+        $scope.username = stateManager.getUsername();
+    })
 
 }])

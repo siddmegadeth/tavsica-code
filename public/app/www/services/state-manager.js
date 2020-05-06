@@ -17,6 +17,10 @@ app.service('stateManager', ['$window', function($window) {
         },
         clear: function() {
             $window.localStorage.clear();
+        },
+        getUsername: function() {
+            if ($window.localStorage.username)
+                return $window.localStorage.username;
         }
     }
 

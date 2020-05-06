@@ -1,0 +1,47 @@
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+    .card-container {
+        width: 45%;
+    }
+
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+    .card-container {
+        width: 40%;
+    }
+
+    ons-card.card-onsen-responsive.card.card--material {
+        display: inline-block;
+        width: 45%;
+        top: 40%;
+        position: relative;
+    }
+
+}
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+    .card-container {
+        width: 28%;
+    }
+
+    ons-card.card-onsen-responsive.card.card--material {
+        display: inline-block;
+        width: 45%;
+        top: 40%;
+        position: relative;
+    }
+}

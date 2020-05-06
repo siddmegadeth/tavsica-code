@@ -1,0 +1,79 @@
+.image-changer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    background: transparent;
+}
+
+.in-image-text {
+    width: 100%;
+}
+
+.camera-holder {
+    position: absolute;
+    z-index: 999999;
+    right: 6%;
+    top: 3%;
+}
+
+.card-container {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 95%;
+    height: auto;
+    border-radius: 2px;
+    display: inline-block;
+    background: white;
+}
+
+.card-header {
+    width: 100%;
+    height: 70%;
+}
+
+.card-footer {
+    height: 30%;
+    width: 96%;
+    /* margin-left: 2%; */
+    /* margin-right: 2%; */
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.card-image-container {
+    width: 100%;
+    height: 100%;
+    /* margin-left: 2%; */
+    /* margin-right: 2%; */
+    /* margin-top: 2%; */
+    margin-bottom: 2%;
+}
+
+.card-image-tuple {
+    width: 100%;
+    object-fit: cover;
+    height: inherit;
+}
+
+.card-p {
+    margin-bottom: 0;
+}
+
+
+.card-full {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+
+ons-card.card-onsen-responsive.card.card--material {
+    top: 40%;
+    position: relative;
+}

@@ -1,0 +1,48 @@
+ons-toolbar.toolbar.toolbar--material {
+    background: #3f51b5;
+}
+
+.center.toolbar__center.toolbar__title.toolbar--material__center {
+    color: white;
+}
+
+.left.toolbar__left.toolbar--material__left {
+    color: white;
+}
+
+.right.toolbar__right.toolbar--material__right {
+    color: white;
+}
+
+ons-toolbar-button.toolbar-button.toolbar-button--material {
+    color: white;
+}
+
+/*Below is Swipeable Tab*/
+.tabbar.ons-tabbar__footer.ons-swiper-tabbar.tabbar--material {
+    background: #3f51b5;
+    color: white;
+}
+
+button.tabbar__button.tabbar--material__button {
+    color: white;
+}
+
+button.tabbar__button.tabbar--material__button {
+    color: white;
+}
+
+button.tabbar__button.tabbar--material__button {
+    color: white;
+}
+
+/*Fab On Home*/
+ons-fab.fab.fab--material.fab--bottom__right {
+    background: red;
+    color: white;
+}
+
+/*Tabber Broder*/
+.tabbar__border.tabbar--material__border {
+    background: white;
+}
