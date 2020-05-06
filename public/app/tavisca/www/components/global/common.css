@@ -1,0 +1,64 @@
+.break-out {
+
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-href {
+    text-decoration: none;
+    color: #2196F3;
+}
+
+.ons-full-width {
+    width: 100%;
+}
+
+.ons-search-container {
+    text-align: center;
+    /* margin-top: 10px; */
+    width: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-left: 1%;
+    margin-right: 1%;
+
+}
+
+.card-title {
+    margin-left: 0%;
+    margin-right: 1%;
+}
+
+
+
+
+.card-item-left {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+
+.card-item-right {
+    margin-right: 0;
+    padding-right: 0;
+}

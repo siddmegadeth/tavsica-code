@@ -1,0 +1,12 @@
+bower_components/
+full-tests/
+more-examples/
+protractor/
+templates/
+.gitignore
+app.js
+gulpfile.js
+index.html
+package-lock.json
+yarn-error.log
+yarn.lock

@@ -1,0 +1,29 @@
+/*This does not contain any style . Do not insert and style info. This is ony for dimensons for onsen*/
+
+ons-input {
+    width: 100%;
+}
+
+.validation.validation-mobile.text-danger {
+    font-size: smaller;
+    font-weight: lighter;
+    color: #F44336;
+}
+
+.validation.validation-fullname.text-danger {
+    font-size: smaller;
+    font-weight: lighter;
+    color: #F44336;
+}
+
+.validation.validation-email.text-danger {
+    font-size: smaller;
+    font-weight: lighter;
+    color: #F44336;
+}
+
+/*Overwrite with ONSEN Outline */
+ons-button.button.button--material.button--material--flat {
+    border: 1px solid #2196F3;
+
+}
