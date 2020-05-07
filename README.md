@@ -25,5 +25,5 @@ http://localhost:30001
 ## Owner
 [Siddharth Chandra](https://www.github.com/siddmegadeth)
 
-![Screenshot](https://github.com/siddmegadeth/tavsica-code/issues/1)
-Format: ![Alt Text](url)
+## 
+if you like it please show your love by upvoting star
