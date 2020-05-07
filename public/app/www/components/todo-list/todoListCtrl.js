@@ -13,19 +13,28 @@ app.controller('todoListCtrl', ['$scope', '$rootScope', '$timeout', 'stateManage
 
 
     $scope.updateToProgress = function(tuple, index) {
-        warn("Tuple To Be In Progress");
+        warn("Tuple To Be Moved In Progress");
         log(tuple)
         log(index);
+        stateManager.saveToTodoProgress(tuple, index);
+        $rootScope.$broadcast("todo-progress", { isTodoProgressUpdated: true });
+        $timeout(function() {
+            $scope.todoCreatedList = stateManager.getTodoList();
+        });
     }
 
     $scope.deleteTodo = function(index) {
         warn("Tuple To Be Deleted");
+        stateManager.deleteTodoListTuple(index);
         log(index);
+        $timeout(function() {
+            $scope.todoCreatedList = stateManager.getTodoList();
+        });
     }
 
     $scope.calculateAgo = function(dateFromStorage) {
         var m = moment(dateFromStorage);
-        return moment(m, 'ddd MMM DD YYYY HH:mm:ss GMT Z').diff(Date.now(), 'hours');
+        return moment(m, 'ddd MMM DD YYYY HH:mm:ss GMT Z').diff(Date.now(), 'minutes');
     }
 
 

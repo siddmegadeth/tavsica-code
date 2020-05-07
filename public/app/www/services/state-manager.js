@@ -52,8 +52,77 @@ app.service('stateManager', ['$window', function($window) {
                 return JSON.parse($window.localStorage.todo);
         },
         deleteTodoListTuple: function(index) {
+            if ($window.localStorage.todo) {
+                log("Deleting Todo Tuple From List");
+                var pop = [];
+                pop = JSON.parse($window.localStorage.todo);
+                pop.pop(index);
+                log(pop);
+                $window.localStorage.setItem("todo", JSON.stringify(pop));
+            }
+        },
+        //  Below Cover Progreess Screen  + Delete From Earlier List
+        saveToTodoProgress: function(todo, index) {
+            if (!$window.localStorage.todo_progress) {
+                var templist = [];
+                todo.type = 'progress';
+                todo.created_at = moment();
 
-        }
+                templist.push(todo);
+                $window.localStorage.setItem("todo_progress", JSON.stringify(templist));
+
+                // delete this from todo original list
+                if ($window.localStorage.todo) {
+                    log("Deleting Todo Tuple From List");
+                    var pop = [];
+                    pop = JSON.parse($window.localStorage.todo);
+                    pop.pop(index);
+                    log(pop);
+                    $window.localStorage.setItem("todo", JSON.stringify(pop));
+                }
+
+            } else {
+                var templist = JSON.parse($window.localStorage.todo_progress);
+                templist.push(todo);
+                $window.localStorage.setItem("todo_progress", JSON.stringify(templist));
+                // delete this from todo original list
+                if ($window.localStorage.todo) {
+                    log("Deleting Todo Tuple From List");
+                    var pop = [];
+                    pop = JSON.parse($window.localStorage.todo);
+                    pop.pop(index);
+                    log(pop);
+                    $window.localStorage.setItem("todo", JSON.stringify(pop));
+                }
+            }
+        },
+        isTodoProgressListAvailabe: function() {
+            if ($window.localStorage.todo_progress) {
+                var todo = JSON.parse($window.localStorage.todo_progress);
+                log(todo);
+                if (todo.length != 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        },
+        getTodoProgressList: function() {
+            if ($window.localStorage.todo_progress)
+                return JSON.parse($window.localStorage.todo_progress);
+        },
+        deleteTodoProgressListTuple: function(index) {
+            if ($window.localStorage.todo_progress) {
+                log("Deleting Todo Tuple From List");
+                var pop = [];
+                pop = JSON.parse($window.localStorage.todo_progress);
+                pop.pop(index);
+                log(pop);
+                $window.localStorage.setItem("todo_progress", JSON.stringify(pop));
+            }
+        },
     }
 
 }]);
