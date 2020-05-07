@@ -200,7 +200,7 @@ ons.preload([
     <template id="todo-complete.html">
         <ons-page ng-controller="todoCompleteCtrl">
             <ons-progress-bar indeterminate ng-if="isCompleteLoading"></ons-progress-bar>
-            <div class="card-container" ng-if="todoCreatedList.length!=0" ng-repeat="todo in todoCreatedList  track by $index" ng-if="todo.type=='progress'">
+            <div class="card-container completed" ng-if="todoCreatedList.length!=0" ng-repeat="todo in todoCreatedList  track by $index" ng-if="todo.type=='progress'">
                 <div class="card-date-formatter">
                     <legend class="legend-left">
                         <i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;
@@ -257,7 +257,7 @@ ons.preload([
                         <ons-input type="text" name="description" ng-model="todo.description" validation="required"></ons-input>
                     </ons-list-item>
                     <ons-list-item>
-                        <ons-button modifier="outline" ng-click="createTodo(todo)" ng-disabled="createTodoForm.$invalid">Create</ons-button>
+                        <ons-button modifier="outline" class='button-create' ng-click="createTodo(todo)" ng-disabled="createTodoForm.$invalid">Create</ons-button>
                     </ons-list-item>
                 </form>
             </ons-card>
