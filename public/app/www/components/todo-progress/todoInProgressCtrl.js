@@ -3,13 +3,15 @@ app.controller('todoInProgressCtrl', ['$scope', '$rootScope', '$timeout', 'state
     // handle todo create
 
 
-    $scope.updateToComplete = function() {
+    $scope.updateToComplete = function(tuple, index) {
         warn("Tuple To Be In Progress");
         log(tuple)
         log(index);
-        stateManager.saveToTodoProgress(tuple);
+        stateManager.saveTodoComplete(tuple, index);
         $rootScope.$broadcast("todo-complete", { isTodoCompleteUpdated: true });
-
+        $timeout(function() {
+            $scope.todoCreatedList = stateManager.getTodoProgressList();
+        });
     };
 
     $scope.deleteTodoProgress = function(index) {

@@ -191,7 +191,7 @@ ons.preload([
             <ons-card ng-show="todoCreatedList.length==0">
                 <ons-list-item>
                     <div class="center">
-                        <h1>You Have Not Created Any Todo</h1>
+                        <h1>You Have No Todo Task In Progress</h1>
                     </div>
                 </ons-list-item>
             </ons-card>
@@ -200,6 +200,38 @@ ons.preload([
     <template id="todo-complete.html">
         <ons-page ng-controller="todoCompleteCtrl">
             <ons-progress-bar indeterminate ng-if="isCompleteLoading"></ons-progress-bar>
+            <div class="card-container" ng-if="todoCreatedList.length!=0" ng-repeat="todo in todoCreatedList  track by $index" ng-if="todo.type=='progress'">
+                <div class="card-date-formatter">
+                    <legend class="legend-left">
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;
+                        {{todo.created_at|date:'fullDate'}}&nbsp;
+                    </legend>
+                    <legend class="legend-right"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
+                        {{calculateAgo(todo.created_at)}}&nbsp;Minutes Ago....
+                    </legend>
+                </div>
+                <div class="card-footer">
+                    <div class="mdl-card__supporting-text  mdl-card--border">
+                        <p class="card-p">
+                            <div class="card-header truncate">
+                                <h1 class="no-margin-pad truncate"><strong>{{todo.header}}</strong></h1>
+                            </div>
+                        </p>
+                        <p class="card-p">
+                            <div class="card-subtext">
+                                <legend>{{todo.description}} </legend>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <ons-card ng-show="todoCreatedList.length==0">
+                <ons-list-item>
+                    <div class="center">
+                        <h1>You Have No Todo Task In Progress</h1>
+                    </div>
+                </ons-list-item>
+            </ons-card>
         </ons-page>
     </template>
     <!-- Create Todo Using FAB-->

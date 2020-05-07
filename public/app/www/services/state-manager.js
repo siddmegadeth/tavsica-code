@@ -123,6 +123,56 @@ app.service('stateManager', ['$window', function($window) {
                 $window.localStorage.setItem("todo_progress", JSON.stringify(pop));
             }
         },
+        // Todo Complete List below
+        isTodoCompleteListAvailabe: function() {
+            if ($window.localStorage.todo_complete) {
+                var todo = JSON.parse($window.localStorage.todo_complete);
+                log(todo);
+                if (todo.length != 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        },
+        getTodoCompleteList: function() {
+            if ($window.localStorage.todo_complete)
+                return JSON.parse($window.localStorage.todo_complete);
+        },
+        saveTodoComplete: function(todo,index) {
+            if (!$window.localStorage.todo_complete) {
+                var templist = [];
+                todo.type = 'complete';
+                todo.created_at = moment();
+                templist.push(todo);
+                $window.localStorage.setItem("todo_complete", JSON.stringify(templist));
+                // delete this from todo original list
+                if ($window.localStorage.todo_progress) {
+                    log("Deleting Todo Tuple From List");
+                    var pop = [];
+                    pop = JSON.parse($window.localStorage.todo_progress);
+                    pop.pop(index);
+                    log(pop);
+                    $window.localStorage.setItem("todo_progress", JSON.stringify(pop));
+                }
+
+            } else {
+                var templist = JSON.parse($window.localStorage.todo_complete);
+                templist.push(todo);
+                $window.localStorage.setItem("todo_complete", JSON.stringify(templist));
+                // delete this from todo original list
+                if ($window.localStorage.todo) {
+                    log("Deleting Todo Tuple From List");
+                    var pop = [];
+                    pop = JSON.parse($window.localStorage.todo_progress);
+                    pop.pop(index);
+                    log(pop);
+                    $window.localStorage.setItem("todo_progress", JSON.stringify(pop));
+                }
+            }
+        }
     }
 
 }]);
