@@ -1,7 +1,8 @@
-app.controller('landingCtrl', ['$scope', '$rootScope', '$timeout','stateManager', function($scope, $rootScope, $timeout,stateManager) {
+app.controller('landingCtrl', ['$scope', '$rootScope', '$timeout', 'stateManager', function($scope, $rootScope, $timeout, stateManager) {
 
 
     // Callback function Success
+
 
     $scope.pageRefresh = function($done) {
         $scope.isLandingLoading = true;
@@ -14,12 +15,6 @@ app.controller('landingCtrl', ['$scope', '$rootScope', '$timeout','stateManager'
     }.bind(this);
 
 
-    $scope.showPopOver = function() {
-        ons.createElement('popover.html', { parentScope: $scope })
-            .then(function(popover) {
-                popover.show();
-            });
-    };
 
     $scope.logout = function() {
         $scope.myNavigator.pushPage('login.html', { animation: window.onsenAnimation.lift }).then(function() {
@@ -29,8 +24,5 @@ app.controller('landingCtrl', ['$scope', '$rootScope', '$timeout','stateManager'
         })
     }
 
-    $timeout(function() {
-        $scope.username = stateManager.getUsername();
-    })
 
 }])

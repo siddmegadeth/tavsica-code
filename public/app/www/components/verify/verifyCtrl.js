@@ -12,7 +12,6 @@ app.controller('verifyCtrl', ['$scope', 'stateManager', '$timeout', function($sc
     // if using server based token then use toekn based approach. this is a demo
 
     $timeout(function() {
-        warn("Validate If User logged I OrNot By checking username");
         if (stateManager.isLoggedIn()) {
             $scope.myNavigator.resetToPage('landing.html', { aniamtion: window.onsenAnimation.lift });
         } else {

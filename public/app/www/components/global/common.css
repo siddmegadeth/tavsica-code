@@ -24,41 +24,10 @@
     text-overflow: ellipsis;
 }
 
-.card-href {
-    text-decoration: none;
-    color: #2196F3;
-}
 
-.ons-full-width {
-    width: 100%;
-}
-
-.ons-search-container {
-    text-align: center;
-    /* margin-top: 10px; */
-    width: auto;
-    padding-left: 2%;
-    padding-right: 2%;
-    margin-left: 1%;
-    margin-right: 1%;
-
-}
-
-.card-title {
-    margin-left: 0%;
-    margin-right: 1%;
-}
-
-
-
-
-.card-item-left {
-    margin-left: 0;
-    padding-left: 0;
-}
-
-
-.card-item-right {
-    margin-right: 0;
-    padding-right: 0;
+.no-margin-pad {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
 }

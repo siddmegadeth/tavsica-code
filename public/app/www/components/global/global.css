@@ -22,8 +22,21 @@ ons-input {
     color: #F44336;
 }
 
-/*Overwrite with ONSEN Outline */
-ons-button.button.button--material.button--material--flat {
-    border: 1px solid #2196F3;
+.card-date-formatter {
+    width: auto;
+    /* float: right; */
+    text-align: right;
+    color: #a09e9e;
+    margin: 2%;
+    margin-left: 2%;
+    /* top: 0; */
+    left: 27%;
+}
 
+.legend-left {
+    float: left;
+}
+
+.legend-right {
+    float: right;
 }

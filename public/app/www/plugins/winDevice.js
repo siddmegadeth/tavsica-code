@@ -8,21 +8,16 @@
             if (window.angular) {
                 isAuto = true;
                 if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 || window.cordova) {
-                    console.log("Cordova App");
                     devType = true;
                     document.addEventListener("deviceready", function() {
-                        console.log("Device Ready");
 
                         angular.bootstrap(document, [appName]);
                         //  $.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAiC98SnMtJTpFFTj5MrkTGmbfIE1n2neY');
 
                     }, false);
                 } else {
-                    console.log("Running In A Browser");
                     devType = false;
                     document.addEventListener("DOMContentLoaded", function() {
-                        console.log("Browser Ready");
-                        console.log("Bootstrapping APP On Browser : " + appName);
                         angular.bootstrap(document, [appName]);
 
                         // $.getScript('https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAiC98SnMtJTpFFTj5MrkTGmbfIE1n2neY');
@@ -52,7 +47,6 @@
                 }
                 this.device = function() {
                     if (window.angular) {
-                        console.log("App Init with Dependency " + appName);
                         return angular.module(appName, inject);
                         return this;
                     } else {
@@ -60,12 +54,7 @@
                     }
                 };
                 this.info = function() {
-                    if (devType) {
-                        log("Emulation For Cordova : true");
-                    } else {
-                        log("Emulation For Browser : true");
-                    }
-                    log("Logging : " + infoType.log);
+                    if (devType) {} else {}
                     return this;
                 }
 

@@ -11,7 +11,6 @@ win.info();
 
 // onsenui config
 ons.ready(function() {
-    warn("ONSEN Is Ready");
     // ons.enableDeviceBackButtonHandler();
     ons.disableDeviceBackButtonHandler();
     ons.setDefaultDeviceBackButtonListener(function(event) {
@@ -42,13 +41,11 @@ window.initAnimation = function(type) {
         window.onsenAnimation.slide = 'slide-ios';
         window.onsenAnimation.lift = 'lift-ios';
     }
-    warn("Initiated ONSENUI Styling Object");
-    log(window.onsenAnimation);
 }
 
 // both platform values has to be same 
-initAnimation('ios');
-ons.platform.select('ios');
+initAnimation('android');
+ons.platform.select('android');
 
 app.config(['$httpProvider', '$translateProvider', function($httpProvider, $translateProvider) {
 
@@ -63,13 +60,10 @@ app.config(['$httpProvider', '$translateProvider', function($httpProvider, $tran
 
 
 app.run(['$rootScope', function($rootScope) {
-    warn("Run Block Is Initaited");
 
     $rootScope.$on('$routeChangeSuccess', function() {
         warn("View Changed Successfully");
     });
-
-
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
 
     });

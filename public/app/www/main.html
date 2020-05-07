@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="components/verify/verify.css">
     <link rel="stylesheet" href="components/landing/landing.css">
     <link rel="stylesheet" href="components/login/login.css">
-    <link rel="stylesheet" href="components/todo-manager/todo-manager.css">
+    <link rel="stylesheet" href="components/todo-progress/todo-progress.css">
+    <link rel="stylesheet" href="components/todo-create/todo-create.css">
+    <link rel="stylesheet" href="components/todo-list/todo-list.css">
+    <link rel="stylesheet" href="components/todo-complete/todo-complete.css">
     <!-- Custom Theming -->
     <link rel="stylesheet" href="components/global/global.css">
     <link rel="stylesheet" href="components/global/common.css">
@@ -34,7 +37,6 @@
 </head>
 <script type="text/javascript">
 ons.preload([
-    'landing.html',
     'login.html',
     'verify.html'
 ]).then(function() {
@@ -54,19 +56,6 @@ ons.preload([
             </ons-toolbar>
             <ons-progress-bar indeterminate ng-if="verifyLoader"></ons-progress-bar>
             <!-- Below Message Is Only SHown When User has Not Granted geolocation Access -->
-            <ons-pull-hook ng-action="pageRefresh($done)" var="loader" ng-show="showRequestButton">
-                <span ng-switch="loader.state">
-                    <span ng-switch-when="initial">
-                        <ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh
-                    </span>
-                    <span ng-switch-when="preaction">
-                        <ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh
-                    </span>
-                    <span ng-switch-when="action">
-                        <ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...
-                    </span>
-                </span>
-            </ons-pull-hook>
         </ons-page>
     </template>
     <!-- Login -->
@@ -108,29 +97,38 @@ ons.preload([
             <ons-progress-bar indeterminate ng-if="isLandingLoading"></ons-progress-bar>
             <!-- Core App Tabber And Navigation -->
             <!-- swipeable -->
-            <ons-tabbar position="top" ignore-edge-width="20" swipeable>
-                <ons-tab page="create.html" icon="fa-play" label="To Do" active>
+            <ons-tabbar position="bottom" ignore-edge-width="20" swipeable>
+                <ons-tab page="todo-list.html" icon="fa-play" label="To Do" active>
                 </ons-tab>
-                <ons-tab page="inprogress.html" label="In Progress" icon="fa-hourglass-start">
+                <ons-tab page="todo-inprogress.html" label="In Progress" icon="fa-hourglass-start">
                 </ons-tab>
-                <ons-tab page="complete.html" label="Completed" icon="fa-check">
+                <ons-tab page="todo-complete.html" label="Completed" icon="fa-check">
                 </ons-tab>
             </ons-tabbar>
         </ons-page>
     </template>
     <!-- create.html -->
-    <template id="create.html">
-        <ons-page ng-controller="todoManagerCtrl">
-            <ons-progress-bar indeterminate ng-if="isCreateLoading"></ons-progress-bar>
+    <template id="todo-list.html">
+        <ons-page ng-controller="todoListCtrl">
+            <ons-progress-bar indeterminate ng-if="isTodoListLoading"></ons-progress-bar>
             <ons-fab position="bottom right" ng-click="openTodo()" ripple>
                 <ons-icon icon="fa-plus"></ons-icon>
             </ons-fab>
-            <div class="card-container" ng-repeat="todo in global.create">
+            <div class="card-container" ng-if="todoCreatedList.length!=0" ng-repeat="todo in todoCreatedList  track by $index" ng-if="todo.type=='create'">
+                <div class="card-date-formatter">
+                    <legend class="legend-left">
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;
+                        {{todo.created_at|date:'fullDate'}}&nbsp;
+                    </legend>
+                    <legend class="legend-right"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
+                        {{calculateAgo(todo.created_at)}}&nbsp;Minutes Ago....
+                    </legend>
+                </div>
                 <div class="card-footer">
                     <div class="mdl-card__supporting-text  mdl-card--border">
                         <p class="card-p">
                             <div class="card-header truncate">
-                                <h3>{{todo.header}}</h3>
+                                <h1 class="no-margin-pad truncate"><strong>{{todo.header}}</strong></h1>
                             </div>
                         </p>
                         <p class="card-p">
@@ -141,26 +139,34 @@ ons.preload([
                     </div>
                     <div class="mdl-card__supporting-text  mdl-card--border">
                         <p class="card-p">
-                            <ons-button ng-click="updateSkills()" modifier="larger outline">Action</ons-button>
+                            <ons-button ng-click="updateToProgress(todo,$index)" modifier="larger outline" class="progress">Move To Progress</ons-button>
+                            <ons-button ng-click="deleteTodo($index)" modifier="larger outline" class="delete">Delete</ons-button>
                         </p>
                     </div>
                 </div>
             </div>
+            <ons-card ng-show="todoCreatedList.length==0">
+                <ons-list-item>
+                    <div class="center">
+                        <h1>You Have Not Created Any Todo</h1>
+                    </div>
+                </ons-list-item>
+            </ons-card>
         </ons-page>
     </template>
-    <template id="inprogress.html">
-        <ons-page ng-controller="todoManagerCtrl">
+    <template id="todo-inprogress.html">
+        <ons-page ng-controller="todoInProgressCtrl">
             <ons-progress-bar indeterminate ng-if="isProgressLoading"></ons-progress-bar>
         </ons-page>
     </template>
-    <template id="complete.html">
-        <ons-page ng-controller="todoManagerCtrl">
+    <template id="todo-complete.html">
+        <ons-page ng-controller="todoCompleteCtrl">
             <ons-progress-bar indeterminate ng-if="isCompleteLoading"></ons-progress-bar>
         </ons-page>
     </template>
-    <!-- Create Todo -->
+    <!-- Create Todo Using FAB-->
     <template id="create-todo.html">
-        <ons-page ng-controller="todoManagerCtrl">
+        <ons-page ng-controller="todoCreateCtrl">
             <ons-toolbar>
                 <div class="left">
                     <ons-back-button></ons-back-button>
@@ -169,25 +175,26 @@ ons.preload([
                     <strong>Create Todo</strong>
                 </div>
             </ons-toolbar>
-            <ons-progress-bar indeterminate ng-if="isCreateToDoLoading"></ons-progress-bar>
+            <ons-progress-bar indeterminate ng-if="isCreateLoading"></ons-progress-bar>
             <ons-card>
-                <ons-list-item ripple>
-                    <legend>Todo Name</legend>
-                    <ons-input type="text" ng-model="todo.header"></ons-input>
-                </ons-list-item>
-                <ons-list-item ripple>
-                    <legend>Description</legend>
-                    <ons-input type="text" ng-model="todo.description"></ons-input>
-                </ons-list-item>
-                <ons-list-item>
-                    <ons-button modifier="outline" ng-click="createTodo(todo)">Create</ons-button>
-                </ons-list-item>
+                <form name="createTodoForm" novalidate>
+                    <ons-list-item ripple>
+                        <legend>Todo Name</legend>
+                        <ons-input type="text" ng-model="todo.header" name="header" validation="required"></ons-input>
+                    </ons-list-item>
+                    <ons-list-item ripple>
+                        <legend>Description</legend>
+                        <ons-input type="text" name="description" ng-model="todo.description" validation="required"></ons-input>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-button modifier="outline" ng-click="createTodo(todo)" ng-disabled="createTodoForm.$invalid">Create</ons-button>
+                    </ons-list-item>
+                </form>
             </ons-card>
         </ons-page>
     </template>
 </body>
 <!-- Core Framework API -->
-<script src="cordova.js" type="text/javascript"></script>
 <script src="plugins/angular-1.7.9/angular.min.js" type="text/javascript"></script>
 <script src="plugins/angular-validation/dist/angular-validation.min.js"></script>
 <script src="plugins/angular-translate/angular-translate.min.js"></script>
@@ -198,7 +205,10 @@ ons.preload([
 <script src="components/verify/verifyCtrl.js" type="text/javascript"></script>
 <script src="components/landing/landingCtrl.js" type="text/javascript"></script>
 <script src="components/login/loginCtrl.js" type="text/javascript"></script>
-<script src="components/todo-manager/todoManagerCtrl.js" type="text/javascript"></script>
+<script src="components/todo-progress/todoInProgressCtrl.js" type="text/javascript"></script>
+<script src="components/todo-create/todoCreateCtrl.js" type="text/javascript"></script>
+<script src="components/todo-list/todoListCtrl.js" type="text/javascript"></script>
+<script src="components/todo-complete/todoCompleteCtrl.js" type="text/javascript"></script>
 <!-- Services -->
 <script src="services/state-manager.js" type="text/javascript"></script>
 <script src="services/interceptor-services.js" type="text/javascript"></script>
